@@ -2000,3 +2000,22 @@ var movies = [
     rate: '8.0'
   }
 ];
+
+
+function bestYearAvg(array){
+  if(array.length == 0) return null;
+  let newO = [];
+  let year = 0;
+  let rating = 0;
+  array.sort().forEach(element => {
+    newO.indexOf[element.year] === undefined?newO[element.year]={name: element.year,count:1, rate:element.rate, rating: element.rate}:
+(newO[element.year].count++, newO[element.year].rate= parseFloat(newO[element.year].rate) + parseFloat(element.rate)
+, newO[element.year].rating = newO[element.year].rate/newO[element.year].count, year > newO[element.year]);
+  });
+  Object.keys(newO).forEach(element => {
+    if(rating < newO[element].rating){ year=newO[element].name, rating =newO[element].rating}
+  })
+  return `The best year was ${year} with an average rate of ${rating}`;
+}
+
+console.log(bestYearAvg(movies));
