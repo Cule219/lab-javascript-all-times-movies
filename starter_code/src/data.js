@@ -2000,22 +2000,52 @@ var movies = [
     rate: '8.0'
   }
 ];
+var newMoviesArr = [
+  { year: "2000", rate: 9 },
+  { year: "2000", rate: 8 },
+  { year: "1978", rate: 10 },
+  { year: "1978", rate: 7 }
+];
 
-
-function bestYearAvg(array){
-  if(array.length == 0) return null;
-  let newO = [];
-  let year = 0;
-  let rating = 0;
-  array.sort().forEach(element => {
-    newO.indexOf[element.year] === undefined?newO[element.year]={name: element.year,count:1, rate:element.rate, rating: element.rate}:
-(newO[element.year].count++, newO[element.year].rate= parseFloat(newO[element.year].rate) + parseFloat(element.rate)
-, newO[element.year].rating = newO[element.year].rate/newO[element.year].count, year > newO[element.year]);
+// function bestYearAvg(array){
+//   if(!array.length) return null;
+//   let newO = {};
+//   let year = 0;
+//   let rating = 0;
+//   array.forEach(element => {
+//     newO.indexOf[element.year] === undefined?newO[element.year]={name: element.year,count:1, rate:element.rate, rating: element.rate}:
+// (newO[element.year].count++, parseFloat(newO[element.year].rate)+=parseFloat(element.rate)
+// , newO[element.year].rating = (newO[element.year] + newO[element.year].rate)/newO[element.year].count);
+//   });
+//   Object.values(newO).forEach(element => {
+//     console.log(element)
+//     if(rating === element.rating && year > element.year){year=element.name}
+//     else if(rating < element.rating){ year=element.name, rating = element.rating}
+    
+//   })
+//   return `The best year was ${year} with an average rate of ${rating}`;
+// }
+function bestYearAvg(array) {
+  if(!array.length) return null;
+  let year, rating = 0;
+  let a = {};
+  array.forEach((b) => {
+    b.year in a?(a[b.year].count++,a[b.year].rating+=parseFloat(b.rate)):(a[b.year]={name: b.year, count: 1, rating: parseFloat(b.rate)})
   });
-  Object.keys(newO).forEach(element => {
-    if(rating < newO[element].rating){ year=newO[element].name, rating =newO[element].rating}
+  console.log(a)
+  Object.values(a).forEach(e => {
+    if(rating === e.rating/e.count && parseInt(year) > parseInt(e.name)){year=e.name;console.log(year)}
+    else if(rating < e.rating/e.count){year=e.name, rating=e.rating/e.count}
   })
   return `The best year was ${year} with an average rate of ${rating}`;
 }
 
+function ratesAverage(array) {
+  return Math.round(array.map(x => x.rate).reduce((acc, val) => Number(acc) + Number(val))/array.length*100)/100;
+}
+
+
+
 console.log(bestYearAvg(movies));
+
+// \

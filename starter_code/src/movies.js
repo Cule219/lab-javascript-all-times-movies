@@ -18,29 +18,27 @@ function howManyMovies(array) {
 function orderAlphabetically(array) {
     return array.map(x => x.title).sort().slice(0, 20);
 }
-// Best yearly rate average
-function bestYearAvg(array){
-    if(array.length == 0) return null;
-    let newO = [];
-    let year = 0;
-    let rating = 0;
-    array.sort().forEach(element => {
-      newO.indexOf[element.year] === undefined?newO[element.year]={name: element.year,count:1, rate:element.rate, rating: element.rate}:
-(newO[element.year].count++, newO[element.year].rate= parseFloat(newO[element.year].rate) + parseFloat(element.rate)
-, newO[element.year].rating = newO[element.year].rate/newO[element.year].count, year > newO[element.year]);
-    });
-    Object.keys(newO).forEach(element => {
-      if(rating < newO[element].rating){ year=newO[element].name, rating =newO[element].rating}
-    })
-    return `The best year was ${year} with an average rate of ${rating}`;
-  }
 
 // Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(array) {
     return array.map(x => {
         let c = 0;
         if(x.duration.indexOf('min') != undefined) c+= Number(x.duration.substring(x.duration.indexOf(' '), x.duration.indexOf('min')));
-        if(x.duration.indexOf('h') != -1) c+= Number(x.duration[0]*60);
+        if(x.duration.indexOf('h') != -1) c+= Number(x.duration[0])*60;
         return Object.assign({}, x, {duration: c})
     });      
 }
+// Best yearly rate average
+function bestYearAvg(array) {
+    if(!array.length) return null;
+    let year, rating = 0;
+    let a = {};
+    array.forEach((b) => {
+      b.year in a?(a[b.year].count++,a[b.year].rating+=parseFloat(b.rate)):(a[b.year]={name: b.year, count: 1, rating: parseFloat(b.rate)})
+    });
+    Object.values(a).forEach(e => {
+      if(rating === e.rating/e.count && parseInt(year) > parseInt(e.name)){year=e.name;console.log(year)}
+      else if(rating < e.rating/e.count){year=e.name, rating=e.rating/e.count}
+    })
+    return `The best year was ${year} with an average rate of ${rating}`;
+  }
